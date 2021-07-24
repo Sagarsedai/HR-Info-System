@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head >
+	<title>User Header</title>
+ 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+	<div th:fragment="userheader">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="/employee">HR-Information-System</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="/employee">Dashboard<span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/employee/personalinfo">Personal Info</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/employee/jobinfo">Job Info</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/employee/leaveinfo">Leave Info</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/employee/viewattendance/38f8963e-08c7-4225-888a-de8efe74ccf0">Attendance Summary</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="btn-warning btn" href="/logout" >Logout</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+	</div>	 
+</body>
+</html>

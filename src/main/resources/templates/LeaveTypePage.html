@@ -1,0 +1,130 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">  
+	
+	<head>
+    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	
+	    <title>Leave Page</title>
+	</head>
+  <body>
+	<div th:replace="/header :: header" />
+	
+	<!-- All Leave Types -->
+	<div class="container mt-5">
+		<div class="alert alert-primary d-flex align-items-center" role="alert">
+		  <div>All leave types in HR Information System!</div>	
+		<button type="button" class="ml-auto btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+		  Add New Leave
+		</button>
+		</div>
+		<table class="table table-striped table-bordered">
+		  <thead>
+		    <tr>
+		      <th scope="col">Id</th>
+		      <th scope="col">Leave Name</th>
+		      <th scope="col">Actions</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="leave : ${leaves}">
+		      <th scope="row" th:text="${leave.id}"></th>
+		      <td th:text="${leave.leaveName}"></td>
+		      <td>
+				<a th:href="${'/admin/leaves/edit/'+leave.id}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0000ff" class="bi bi-pencil-square" viewBox="0 0 16 16">
+					  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+					  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+					</svg>
+				</a>
+				<a th:href="${'/admin/leaves/delete/'+leave.id}" class="ml-5" >
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="bi bi-trash" viewBox="0 0 16 16">
+					  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+					  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+					</svg>
+				</a>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	
+	<!-- All Leaves Applied / Approved / Pending -->
+	<div class="container">
+		<div class="card">
+			<div class="card-title p-4">
+				<h4>All leaves applied / approved / pending</h4>
+			</div>
+			<div class="card-body">
+				<div class="list-group" >
+				    <div th:each="obj : ${allleaves}" class="list-group-item " >
+						<div class="card p-4">
+ 							<p class="alert alert-primary"><strong th:text="${'Id:  '+obj.user_id}"></strong></p>
+							<p class="alert alert-secondary"><strong th:text="${'Email:  '+obj.email}"></strong></p>
+							<p class="alert alert-warning"><strong th:text="${'Username:  '+obj.username}"></strong></p>
+						</div>
+						<form class="my-4 card p-2" method="post" th:action="${'/admin/leave/approve/'+leave.id}" th:each="leave : ${obj.leaves}" >
+							<strong th:text="${leave.leaveTypes.leaveName}" class="ml-5"></strong>
+				      		<div class="input-group my-2">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="inputGroup-sizing-default">Applied Date</span>
+							  </div>
+							  <input disabled="disabled" th:value="${#strings.substring(leave.appliedDate,0,10)}" type="text" class="form-control" >
+							</div>	
+				      		<div class="input-group my-2">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="inputGroup-sizing-default">Approved Date</span>
+							  </div>
+							  <input required="required" type="date" class="form-control"  id="approvedDate" name="approvedDate" th:value="${#strings.substring(leave.approvedDate,0,10)}">
+							</div>	
+				      		<div class="input-group my-2">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="inputGroup-sizing-default">Leave Deadline</span>
+							  </div>
+							  <input required="required" type="date" class="form-control" id="lastDate" name="lastDate" th:value="${#strings.substring(leave.lastDate,0,10)}">
+							</div>	
+							<div class="input-group my-2" th:if="${leave.isApproved ==false}">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="inputGroup-sizing-default">Approved</span>
+							  </div>
+							  <input required="required" type="checkbox" class="form-control" id="isApproved" name="isApproved" >
+							</div>
+							<button th:if="${leave.isApproved == false}" class="btn btn-success">Apply</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Add New Leave Type</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="/admin/leaves/add" method="post">
+			  <div class="form-group">
+			    <label >Leave Name</label>
+			    <input type="text" class="form-control" id="leaveName" name="leaveName" required="required" autofocus="autofocus">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  </body>
+</html>

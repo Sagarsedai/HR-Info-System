@@ -1,0 +1,128 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">  
+	
+	<head>
+    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	
+	    <title>User Job Info</title>
+	    <style type="text/css">
+	    	.card{
+	    		margin:3rem 0;
+	    	}
+	    </style>
+	</head>
+  <body>
+	<div th:replace="/userheader:: userheader" />
+	<div class="container mt-5">
+		<div class="alert alert-primary" role="alert">
+		 Users Job Info
+		</div>
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">Office And Position</h5>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Office Name</span>
+				  <input type="text" class="form-control" th:value="${info.officeName}" disabled="disabled">
+				</div>
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >BranchName</span>
+				  <input type="text" class="form-control" th:value="${info.branchName}" disabled="disabled">
+				</div>		    
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Level</span>
+				  <input type="text" class="form-control" th:value="${info.level}" disabled="disabled">
+				</div>		    
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Department</span>
+				  <input type="text" class="form-control" th:value="${info.department}" disabled="disabled">
+				</div>		    
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Position</span>
+				  <input type="text" class="form-control" th:value="${info.position}" disabled="disabled">
+				</div>		    
+		    </li>
+		  </ul>
+		</div>
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">TimeLine</h5>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Joined Date</span>
+				  <input type="text" class="form-control" th:value="${info.dateJoined}" disabled="disabled">
+				</div>		    
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Permanent Date</span>
+				  <input type="text" class="form-control" th:value="${info.permanentDate}" disabled="disabled">
+				</div>		    
+		    </li>
+		    <li class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Years of expericence</span>
+				  <input type="text" class="form-control" th:value="${info.yearsOfService}" disabled="disabled">
+				</div>		    
+		    </li>
+		  </ul>
+		</div>
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">Team Information</h5>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		     <li th:each="team : ${info.teamNames}" class="list-group-item">
+		    	<div class="input-group mb-3">
+				  <span class="input-group-text" >Team Name</span>
+				  <input type="text" class="form-control" th:value="${team.teamName}" disabled="disabled">
+				</div>		    
+		    </li>
+		  </ul>
+		</div>
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">Transfer History</h5>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		     <li th:each="promos : ${info.transferHistories}" class="list-group-item">
+		    	<div class="card">
+		    		<div class="card-body">
+		    			<div class="input-group mb-3">
+						  <span class="input-group-text" >Transfer Information</span>
+						  <input type="text" class="form-control" th:value="${promos.info}" disabled="disabled">
+						</div>
+						<div class="input-group mb-3">
+						  <span class="input-group-text" >Promotion Title</span>
+						  <input type="text" class="form-control" th:value="${promos.promotionName}" disabled="disabled">
+						</div>	
+		    		</div>
+		    	</div>	    
+		    </li>
+		  </ul>
+		</div>
+	</div>
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  </body>
+</html>

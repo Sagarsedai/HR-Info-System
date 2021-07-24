@@ -1,0 +1,133 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">  
+	
+	<head>
+    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	
+	    <title>User Dashboard</title>
+	</head>
+  <body>
+	<div th:replace="/userheader:: userheader" />
+	<div class="container mt-5">
+		<div class="alert alert-primary" role="alert">
+		 Users Personal Info
+		</div>
+		
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">My Personal Information</h5>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Office Contact</span>
+		    	<span th:text="${personalinfo.officeContact}"></span>	
+		    </li>
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Personal Contact</span>
+		    	<span th:text="${personalinfo.personalContact}"></span>	
+		    </li>
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span >Permanent Address</span>
+		    	<span th:text="${personalinfo.permanentAddress}"></span>	
+		    </li>
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Temporary Address</span>
+		    	<span th:text="${personalinfo.temporaryAddress}"></span>	
+		    </li>
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Father / Mother Name</span>
+		    	<span th:text="${personalinfo.parentName}"></span>	
+		    </li>
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Health Status</span>
+		    	<span th:text="${personalinfo.healthStatus}"></span>	
+		    </li>
+		   </ul>
+		  <div class="card-body">
+		    <a th:href="${'/employee/personalinfo/edit/'+personalinfo.id}" class="card-link">Edit</a>
+		  </div>
+		</div>
+		
+		<div class="card my-5" >
+		  <div class="card-body d-flex justify-content-between align-items-center">
+		    <h5 class="card-title">My Educational / Id Details</h5>
+		    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add New Carrer / Id</button>
+		  </div>
+		  <ul class="list-group list-group-flush mt-4" th:each="info : ${personalinfo.carrerInfos}">
+		     <li class="list-group-item d-flex justify-content-between">
+		    	<span>ID</span>
+		    	<span th:text="${info.id}"></span>	
+		    </li>
+		     <li class="list-group-item d-flex justify-content-between">
+		    	<span>Title</span>
+		    	<span  th:text="${info.name}"></span>	
+		    </li>
+			<li class="list-group-item d-flex justify-content-between">
+		    	<span>Details</span>
+		    	<span th:text="${info.details}"></span>	
+		    </li>
+			<li class="list-group-item d-flex justify-content-between">
+		    	<img alt="" class="img-fluid" th:src="${'http://localhost:8080/employee/downloads/file/'+info.id}" >
+		    </li>
+		   	<li class="list-group-item d-flex justify-content-between">
+		    	<span>FileType</span>
+		    	<span th:text="${info.fileType}"></span>	
+		    </li>		    
+		    <li class="list-group-item d-flex justify-content-between">
+		    	<span>Actions</span>
+		    	<span >
+		    		<a class="btn btn-warning" th:href="${'/employee/carrerinfo/delete/'+info.id}">
+		    			Delete
+		    			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="ml-5 bi bi-archive" viewBox="0 0 16 16">
+						  <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+		    		</a>
+		    	</span>	
+		    </li>
+		  </ul>
+		</div>
+		
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Add New Id / Carrer Details</h5>
+	        <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="/employee/personalinfo/add/" method="post" enctype="multipart/form-data">
+			  <div class="form-group">
+			    <label >Carrer / Id Title</label>
+			    <input type="text" class="form-control" id="name" name="name" required="required" autofocus="autofocus">
+			  </div>
+			  <div class="form-group">
+			    <label >Carrer / Id Details</label>
+			    <input type="text" class="form-control" id="details" name="details" required="required" autofocus="autofocus">
+			  </div>
+			  <div class="form-group">
+			    <label >File</label>
+			    <input type="file" class="form-control" id="file" name="file" required="required" autofocus="autofocus" accept="image/*">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">  
+	
+	<head>
+    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	
+	    <title>User Dashboard</title>
+	</head>
+  <body>
+	<div th:replace="/userheader:: userheader" />
+	<div class="container mt-5">
+		<div class="alert alert-primary" role="alert">
+		 Users Personal Info
+		</div>
+		
+		<div class="card" >
+		  <div class="card-body">
+		    <h5 class="card-title">Update My Personal Information</h5>
+		  </div>
+			<form method="post" th:action="${'/employee/personalinfo/edit/'+personalinfo.id}"  class="p-5">
+			<ul class="list-group list-group-flush">
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Office Contact</span>
+				  </div>
+				  <input th:value="${personalinfo.officeContact}" name="officeContact" id="officeContact" type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Personal Contact</span>
+				  </div>
+				  <input th:value="${personalinfo.personalContact}" name="personalContact" id="personalContact" type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Permanent Address</span>
+				  </div>
+				  <input th:value="${personalinfo.permanentAddress}"  name="permanentAddress" id="permanentAddress" type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Temporary Address</span>
+				  </div>
+				  <input th:value="${personalinfo.temporaryAddress}" name="temporaryAddress" id="temporaryAddress" type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Father's / Mother's Name</span>
+				  </div>
+				  <input th:value="${personalinfo.parentName}" name="parentName" id="parentName" type="text" class="form-control">
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Health Status Description</span>
+				  </div>
+				  <input th:value="${personalinfo.healthStatus}" name="healthStatus" id="healthStatus" type="text" class="form-control">
+				</div>
+
+			   </ul>
+			 
+			    <button class="btn btn-warning">Submit</button>
+			 </form>
+		</div>		
+		
+	</div>
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  </body>
+</html>
